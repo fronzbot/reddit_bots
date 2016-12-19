@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 '''
 reinhart_not_hardt.py
 Author: Kevin Fronczak
@@ -16,8 +18,8 @@ LOGGER  = logger.Logger("reinhart_not_hardt.log")
 
 def main():
   reddit     = praw.Reddit('reinhart_not_hardt')
-  subreddit  = reddit.subreddit("sabres")
-   
+  subreddit  = reddit.subreddit("sabres+hockey")
+
   if not os.path.isfile("already_replied.txt"): 
     already_done = []
   else:
@@ -27,15 +29,11 @@ def main():
       already_done = list(filter(None, already_done))
   
   # Read through all submissions
-  while True:
-    for submission in subreddit.hot(limit=20):
-      fix_post_errors(submission, already_done)
+  for submission in subreddit.hot(limit=30):
+    fix_post_errors(submission, already_done)
     
-    # Run every 5 minutes
-    save_post_data(already_done)
-    LOGGER.write("Sleeping")
-    time.sleep(300)
-    
+  # Run every 10 minutes
+  save_post_data(already_done)    
 
 '''
 Goes through posts in subreddit(s) and replys if:

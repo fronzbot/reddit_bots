@@ -1,0 +1,2 @@
+*/5 * * * * cd /home/pi/reddit_bots/ && /usr/bin/python3 /home/pi/reddit_bots/reinhart_not_hardt.py 2>&1 /home/pi/reddit_bots/cron.log
+
