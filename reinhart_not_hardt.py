@@ -29,7 +29,7 @@ def main():
       already_done = list(filter(None, already_done))
   
   # Read through all submissions
-  for submission in subreddit.hot(limit=30):
+  for submission in subreddit.hot(limit=40):
     fix_post_errors(submission, already_done)
     
   # Run every 10 minutes
@@ -62,15 +62,17 @@ def fix_post_errors(submission, already_done):
       
     lc_comment = comment.body.lower()
     if 'reinhardt' in lc_comment and comment.link_id not in already_done:
+      now = time.strftime("%Y-%m-%d %H:%M:%S")
       comment.reply("#")
-      LOGGER.write("Replying to Comment: "+lc_comment)
+      LOGGER.write("("+now+") Replying to Comment: "+lc_comment)
       already_done.append(comment.link_id)
       
   # Check title
   if submission.id not in already_done:
     if 'reinhardt' in lc_title or 'reinhardt' in lc_text:
+      now = time.strftime("%Y-%m-%d %H:%M:%S")
       submission.reply('#')
-      LOGGER.write('Replying to: '+submission.title)
+      LOGGER.write("("+now+") Replying to: "+submission.title)
       LOGGER.write(submission.id)
       already_done.append(submission.id)
     

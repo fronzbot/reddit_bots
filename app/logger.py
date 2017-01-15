@@ -5,12 +5,13 @@ import os
 import time
  
 class Logger(object):
-  def __init__(self, filename="log.txt", newFile=False):
+  def __init__(self, filename="log.txt", newFile=False, writeAtStart=False):
     self.filename = filename
     if os.path.isfile(self.filename) and newFile:
       os.remove(self.filename)
-      
-    self.write("Starting on "+time.strftime("%Y-%m-%d %H:%M:%S"))
+    
+    if writeAtStart:
+      self.write("Starting on "+time.strftime("%Y-%m-%d %H:%M:%S"))
     
   def write(self, message, debug=False):
     self.log = open(self.filename, "a")
